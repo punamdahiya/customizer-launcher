@@ -11,6 +11,7 @@ export default class WebServer {
       var request = evt.request;
       var response = evt.response;
       response.headers['Access-Control-Allow-Origin'] = '*';
+      response.headers['Cache-Control'] = 'no-cache';
 
       if (request.path === '/request') {
         response.send(this.lastLaunchedManifestURL);
