@@ -1,3 +1,5 @@
+/* global Sanitizer */
+
 import { View } from 'components/fxos-mvc/dist/mvc';
 import 'components/gaia-list/gaia-list';
 import 'components/gaia-button/gaia-button';
@@ -33,7 +35,7 @@ export default class ListView extends View {
   addElement(data) {
     var item = document.createElement('li');
     item.classList.add('app');
-    item.innerHTML = this.listItemTemplate(data);
+    item.innerHTML = Sanitizer.unwrapSafeHTML(this.listItemTemplate(data));
     IconHelper.setImage(item.querySelector('.icon'), data.icon);
     this.el.appendChild(item);
 
@@ -46,7 +48,7 @@ export default class ListView extends View {
   }
 
   listItemTemplate({ name, author }) {
-    var string = `
+    var string = Sanitizer.createSafeHTML`
       <img class="icon" />
       <div flex class="description">
         <p class="name">${capitalize(name)}</p>
